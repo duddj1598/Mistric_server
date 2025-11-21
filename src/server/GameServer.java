@@ -54,10 +54,7 @@ public class GameServer extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-
-    // ============================================================
     // 서버 시작
-    // ============================================================
     private void startServer(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -91,10 +88,7 @@ public class GameServer extends JFrame {
             print("서버 시작 실패: " + e.getMessage());
         }
     }
-
-    // ============================================================
     // 서버 종료
-    // ============================================================
     private void stopServer() {
         try {
             running = false;
@@ -117,27 +111,18 @@ public class GameServer extends JFrame {
             print("서버 종료 오류: " + e.getMessage());
         }
     }
-
-    // ============================================================
     // 클라이언트 제거
-    // ============================================================
     public synchronized void removeClient(ClientHandler handler) {
         clients.remove(handler);
         print("Client 제거됨. 현재 인원: " + clients.size());
     }
-
-    // ============================================================
     // 로그
-    // ============================================================
     public synchronized void print(String msg) {
         logArea.append(msg + "\n");
         logArea.setCaretPosition(logArea.getDocument().getLength());
         System.out.println(msg);
     }
-
-    // ============================================================
-    // 서버 전체 방송
-    // ============================================================
+    // 서버 전체 전송
     public synchronized void broadcastToAll(GameMsg msg) {
         for (ClientHandler ch : clients) {
             ch.send(msg);
